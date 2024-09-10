@@ -1,0 +1,5 @@
+{
+    "watch":["src","app.js"],
+    "ext":"json,js",
+    "exec":"node app.js"
+}

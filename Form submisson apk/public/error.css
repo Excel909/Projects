@@ -1,0 +1,14 @@
+body{
+    margin: 0;
+    padding: 20px;
+    background-color: whitesmoke;
+    font-family: calibri;
+}
+
+*{
+    box-sizing: border-box;
+}
+
+.header{
+    font-size: 25pt;
+}
