@@ -43,6 +43,7 @@ app.post('/submit', (req,res) => {
         } else {
             jsonData.push(formData);
 
+            // write file
             fs.writeFile(filePath, JSON.stringify(jsonData,null,2), (err,data) => {
                 if(err){
                     res.status(500).send('ERROR SAVING DATA');
