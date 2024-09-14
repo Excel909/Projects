@@ -8,7 +8,7 @@
     "name": "Excellent",
     "number": "09144984063",
     "email": "excellentayomide@gmail.com"
-  },
+  },  
   {
     "name": "Jerry Yomi",
     "number": "09017665432",
@@ -18,5 +18,10 @@
     "name": "Jerry Yomi",
     "number": "09017665432",
     "email.logo": "yoyomi@gmail.com"
+  },
+  {
+    "name": "Sedoo Vershima",
+    "number": "08144565656",
+    "email": "sedoo@gmail.com"
   }
 ]

@@ -1,0 +1,137 @@
+body{
+    background-color: white;
+    margin: 0;
+    padding: 0;
+}
+
+*{
+    box-sizing: border-box;
+}
+
+:root{
+    --font-family:"Poppins", sans-serif;
+    --background:rgb(211, 141, 12);
+    --s-font-family:arial;
+}
+
+#container{
+    width: 100%;
+    height: 100%;
+    font-family: calibri;
+}
+
+.sign_header{
+    width: 100%;
+    height: 80px;
+    box-shadow: 0px 0px 8px #ccc;
+}
+
+.sign_logo{
+    display: flex;
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+    gap:5px;
+}
+
+.s-r{
+    font-size: 15pt;
+}
+
+.s-l{
+    color: var(--background);
+}
+
+/* Designing form */
+
+.form{
+    width: fit-content;
+    padding: 20px;
+    background-color: white;
+    box-shadow: 0px 0px 9px #ccc;
+    margin: auto;
+    margin-top: 5vh;
+    border-radius: 20px;
+}
+
+.form_head{
+    font-size: 17pt;
+    font-family: calibri;
+}
+
+form{
+    margin-top: 15px;
+}
+
+form label{
+    display: block;
+    margin-top: 20px;
+}
+
+.form_title{
+    font-size: 13pt;
+    text-transform: capitalize; 
+}
+
+.dp1{
+    margin-top: 10px;
+    width: 320px;
+    padding: 15px;
+    border-radius: 20px;
+    border: none;
+    box-shadow: 0px 1px 5px 0px #ccc;
+}
+
+.dp1:focus{
+    outline: 1px solid var(--background);
+}
+
+.bttn{
+    margin-top: 15px;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+}
+
+.form_btn{
+    width: 100%;
+    padding: 10px;
+    border-radius: 23px;
+    border: none;
+    color: white;
+    background-color: var(--background);
+}
+
+.form_btn:hover{
+    cursor: pointer;
+    opacity: 0.8;
+}
+
+.login_link{
+    margin-top: 30px;
+    width: 100%;
+    text-align: center;
+    font-family: calibri;
+}
+
+.login_link a{
+    color: var(--background);
+}
+
+#password_strength{
+    margin-top: 3px;
+    padding-top: 5px;
+}
+/* for sign up password input*/
+.weak{
+    color: red;
+}
+
+.medium{
+    color: yellow;
+}
+
+.strong{
+    color: green;
+}
