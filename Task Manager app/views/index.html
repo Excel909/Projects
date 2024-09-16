@@ -18,6 +18,36 @@
 </head>
 <body>
     <div id="container">
+        <div class="dash-creator" id="dash-creator">
+            <div class="task-adder">
+                <div class="ta-exit">
+                    <button type="button" id="ta-exit-btn">X</button>
+                </div>
+                <div class="ta-head">
+                    Create New Task
+                </div>
+
+                <div class="task-inputs">
+                    <form>
+                        <label for="task-name"><span class="task-title">Task Title</span><br>
+                            <input type="text" class="task-input" placeholder="Task Name" id="task-name">
+                        </label>
+
+                        <label for="task-date"></label><span class="task-title">Due Date:</span><br>
+                            <input type="datetime-local" class="task-input" id="task-name">
+                        </label>
+
+                        <label for="task-detail">
+                            <textarea type="text" class="task-area" placeholder="Task briefing" id="task-detail"></textarea>
+                        </label>
+
+                        <div class="task-btn">
+                            <button type="submit" class="t-btn">Create Task</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
         <div class="top-nav">
             <div class="t-l">
                 <div class="t-ll">
@@ -29,7 +59,7 @@
             </div>
 
             <div class="t-r">
-                <button class="add_task" type="button">Add Task</button>
+                <button class="add_task" id="add_task" type="button">Add Task</button>
 
                 <div class="t-search">
                     <input type="search" placeholder="Search tasks..." class="ts-search">
@@ -37,6 +67,108 @@
                 </div>
             </div>
         </div>
+
+        <div class="split">
+            <div class="left">
+                <div class="filter">
+                    <div class="fil-head">
+                        Filters
+                    </div>
+
+                    <div class="fil-group">
+                        <div class="f-g">
+                            <div class="custom-check-cont">
+                                <input type="checkbox" class="cc" id="cc_one">
+                                <label for="cc_one" class="cc_label" id="cc_one"></label>
+                            </div>
+
+                            <div class="ccc-text">
+                                Priority
+                            </div>
+                        </div>
+
+                        <div class="f-g">
+                            <div class="custom-check-cont">
+                                <input type="checkbox" class="cc" id="cc_two">
+                                <label for="cc_two" class="cc_label" id="cc_two"></label>
+                            </div>
+
+                            <div class="ccc-text">
+                                Due Today
+                            </div>
+                        </div>
+
+                        <div class="f-g">
+                            <div class="custom-check-cont">
+                                <input type="checkbox" class="cc" id="cc_three">
+                                <label for="cc_three" class="cc_label" id="cc_three"></label>
+                            </div>
+
+                            <div class="ccc-text">
+                                Completed
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="sort">
+                    <div class="s-head">
+                        Sort By
+                    </div>
+                    <div class="sort-group">
+                        <div class="s-g">
+                            <input type="radio" class="sort-radio" id="sort_date"/>
+                            <div class="sg-text">
+                                Due date
+                            </div>
+                        </div>
+
+                        <div class="s-g">
+                            <input type="radio" class="sort-radio" id="sort_priority"/>
+                            <div class="sg-text">
+                                Priority
+                            </div>
+                        </div>
+
+                        <div class="s-g">
+                            <input type="radio" class="sort-radio" id="sort_c_date"/>
+                            <div class="sg-text">
+                                Creation Date
+                            </div>
+                        </div>
+                    </div>
+                </div>
+               
+                
+            </div>
+
+            <div class="right">
+                <div class="right-inner">
+                    <div class="dash-head">
+                        Your Tasks
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="bottom-nav">
+            <div class="bn">
+                <button class="bn-btn"><i class="fa fa-home"></i></button>
+            </div>
+
+            <div class="bn">
+                <button class="bn-btn">D</button>
+            </div>
+
+            <div class="bn">
+                <button class="bn-btn">D</button>
+            </div>
+        </div>
     </div>
+
+    <!-- Javascript for dashboard functionalities link -->
+
+    <script src="/dashboard.js"></script>
 </body>
 </html>
