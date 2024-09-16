@@ -1,4 +1,5 @@
 @import url('index-styler.css');
+@import url('setting.css');
 
 .cal-inner{
     width: 100%;
@@ -43,7 +44,7 @@
 .cal-display{
     width: 25%;
     height: 100%;
-    border-right: 1px solid #ccc;
+    /* border-right: 1px solid #ccc; */
 }
 
 .cal-calendar{
@@ -56,7 +57,7 @@
     padding: 10px;
     border: 1px solid #ccc;
     margin: auto;
-    margin-top: 40px;
+    margin-top: 30px;
     border-radius: 10px;
 }
 
@@ -85,11 +86,13 @@
     display: flex;
     justify-content: space-around;
     align-items: center;
+    border-radius: 5px;
 }
 
 .cal-task-day{
     background-color: var(--background);
     color: white;
+    cursor: pointer;
 }
 
 .cal-week{
@@ -115,4 +118,21 @@
     background-color: var(--background);
     border-radius: 5px;
     cursor: pointer;
+}
+
+.c-in{
+    width: 90%;
+    height: fit-content;
+    padding: 10px;
+    margin: auto;
+    border: 1px solid #ccc;
+    margin-top: 20px;
+    border-radius: 10px;
+}
+
+#c-d{
+    font-size: 11pt;
+    margin-top: 15px;
+    font-family: calibri;
+    line-height: 1.5;
 }

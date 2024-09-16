@@ -40,7 +40,7 @@ const strength_update = (password) => {
     if(/[A-Z]/.test(password)) strength++;
     if(/[a-z]/.test(password)) strength++;
     if(/[0-9]/.test(password)) strength++;
-    if(/[^A-Za-z0-9]/.test(password)) strength++
+    if(/[^A-Za-z0-9]/.test(password)) strength++;
 
     if(strength < 3){
         return 'weak';

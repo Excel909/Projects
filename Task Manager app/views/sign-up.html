@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sign up</title>
     <!-- Css files -->
-    <link rel="stylesheet" type="text/css" href="../public/sign-up.css">
+    <link rel="stylesheet" type="text/css" href="/sign-up.css">
 
     <!-- For icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
@@ -37,7 +37,7 @@
                 Create a New Account
             </div>
 
-            <form>
+            <form method="post" action="/submit">
                 <label for="name"><span class="form_title">Username</span><br>
                     <input type="text" name="name" class="dp1" id="name" maxlength="20" minlength="4" required/>
                 </label>
@@ -60,7 +60,7 @@
         </div>
 
         <div class="login_link">
-            Already have an Account? <a href="#">Login</a>
+            Already have an Account? <a href="/login">Login</a>
         </div>
     </div>
 

@@ -1,27 +1,27 @@
 // Tasks
 
-const tasks = {
-    '2024-01-15': [
-        {
-            title: 'Task 1',
-            category: 'Work',
-            priority: 'High'
-        }
-    ],
-    '2024-02-05': [
-        {
-            title: 'Task 2',
-            category: 'Personal',
-            priority: 'Low'
-        },
-        {
-            title: 'Task 3',
-            category: 'Fitness',
-            priority: 'Medium'
-        }
-    ]
-    // Add more task dates with task details here
-};
+// const tasks = {
+//     '2024-09-09': [
+//         {
+//             title: 'Task 1',
+//             category: 'Work',
+//             priority: 'High'
+//         }
+//     ],
+//     '2024-02-05': [
+//         {
+//             title: 'Task 2',
+//             category: 'Personal',
+//             priority: 'Low'
+//         },
+//         {
+//             title: 'Task 3',
+//             category: 'Fitness',
+//             priority: 'Medium'
+//         }
+//     ]
+//     // Add more task dates with task details here
+// };
 
 
 
@@ -49,10 +49,31 @@ const createDays = () => {
     let i;
     for(i = 0; i < daysInMonth; i++){
         const dayBox = document.createElement('div');
-        dayBox.className = 'cal-day';
+        dayBox.classList.add('cal-day');
         dayBox.textContent = i + 1;
         dayBox_holder.append(dayBox);
+
+        const dateString = `${Year}-${String(Month + 1).padStart(2, '0')}-${String(i + 1).padStart(2, '0')}`;
+
+        // Working on my tasks
+        // if(tasks[dateString]){
+        //     dayBox.classList.add('cal-task-day');
+
+        //     dayBox.addEventListener('mouseover', () => {
+        //         tasks[dateString].forEach(task => {
+        //             const pop_display = document.getElementById('c-d');
+        
+        //             pop_display.innerHTML = `Task title: ${task.title} <br> Category: ${task.category} <br> Priority: ${task.priority}`;
+
+        //             dayBox.addEventListener('mouseleave', () => {
+        //                 pop_display.textContent = '';
+        //             });
+        //         });
+        //     });
+        // }
     }
+
+    
 };
 
 // Previous and Next Buttons config
@@ -89,4 +110,3 @@ nextbtn.addEventListener('click',nextBtn);
 updateCalendar();
 
 createDays();
-
