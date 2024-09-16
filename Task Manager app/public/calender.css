@@ -1,0 +1,118 @@
+@import url('index-styler.css');
+
+.cal-inner{
+    width: 100%;
+    height: 80vh;
+    font-family: var(--font-family);
+    display: flex;
+}
+
+.cal-head{
+    width: 100%;
+    height: 10vh;
+    box-shadow: 0px 0px 7px #ccc;
+    justify-content: space-between;
+    display: flex;
+    align-items: center;
+    font-family: var(--font-family);
+}
+
+.ci{
+    color: var(--background);
+}
+
+.cal-logo{
+    padding-left: 20px;
+}
+
+.cal-button{
+    padding-right: 20px;
+}
+
+.cal-btn{
+    width: 120px;
+    padding: 10px;
+    background-color: var(--background);
+    color: white; 
+    border: none;
+    border-radius: 20px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.cal-display{
+    width: 25%;
+    height: 100%;
+    border-right: 1px solid #ccc;
+}
+
+.cal-calendar{
+    width: 75%;
+    height: 100%;
+}
+
+.calender{
+    width: fit-content;
+    padding: 10px;
+    border: 1px solid #ccc;
+    margin: auto;
+    margin-top: 40px;
+    border-radius: 10px;
+}
+
+.year_month{
+    display: flex;
+    gap: 10px;
+    font-size: 18pt;
+    justify-content: center;
+    padding: 10px;
+}
+
+.cal-days{
+    width: fit-content;
+    display: grid;
+    grid-template-columns: repeat(7,1fr);
+    margin-top: 10px;
+    gap: 10px;
+    height: 300px;
+}
+
+.cal-day{
+    width: 50px;
+    height: 50px;
+    border: 1px solid #ccc;
+    text-align: center;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.cal-task-day{
+    background-color: var(--background);
+    color: white;
+}
+
+.cal-week{
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(7,1fr);
+    text-align: center;
+}
+
+.cal-btns{
+    width: 100%;
+    height:fit-content;
+    justify-content: space-around;
+    display: flex;
+    margin-top: 5px;
+}
+
+#cal-prev,#cal-next{
+    width: 100px;
+    padding: 8px;
+    border: none;
+    color: white;
+    background-color: var(--background);
+    border-radius: 5px;
+    cursor: pointer;
+}

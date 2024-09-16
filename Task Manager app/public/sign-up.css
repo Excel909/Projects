@@ -1,3 +1,5 @@
+@import url('index-styler.css');
+
 body{
     background-color: white;
     margin: 0;
@@ -7,12 +9,12 @@ body{
 *{
     box-sizing: border-box;
 }
-
+/* 
 :root{
     --font-family:"Poppins", sans-serif;
     --background:rgb(211, 141, 12);
     --s-font-family:arial;
-}
+} */
 
 #container{
     width: 100%;
