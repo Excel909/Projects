@@ -6,7 +6,7 @@
     <title>Login>> TaskMaster</title>
 
     <!-- Css files -->
-    <link rel="stylesheet" type="text/css" href="../public/login.css">
+    <link rel="stylesheet" type="text/css" href="/login.css">
 
     <!-- For icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
@@ -35,13 +35,13 @@
 
 
     <div class="form">
-        <div class="login_head">
+        <div class="login_head">    
             Login to TaskMaster
         </div>
 
-        <form>
-            <label for="name"><span class="form_title">Username</span><br>
-                <input type="text" name="name" class="dp1" required/>
+        <form method="post" action="/user-login">
+            <label for="email"><span class="form_title">Email</span><br>
+                <input type="email" name="email" class="dp1" required/>
             </label>
 
             <label for="password"><span class="form_title">password</span><br>
@@ -55,7 +55,7 @@
     </div>
 
     <div class="login_link">
-        Don't have an Account? <a href="#">Sign up</a>
+        Don't have an Account? <a href="/sign-up">Sign up</a>
     </div>
 </div>
 

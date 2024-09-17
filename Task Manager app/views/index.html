@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TM Dashboard</title>
-    <link rel="stylesheet" type="text/css" href="/index-styler.css">
+    <link rel="stylesheet" type="text/css" href="../public/index-styler.css">
     <!-- For icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -21,24 +21,35 @@
         <div class="dash-creator" id="dash-creator">
             <div class="task-adder">
                 <div class="ta-exit">
-                    <button type="button" id="ta-exit-btn">X</button>
+                    <button type="button" id="ta-exit-btn"><i class="fa-regular fa-circle-xmark"></i></button>
                 </div>
                 <div class="ta-head">
                     Create New Task
                 </div>
 
                 <div class="task-inputs">
-                    <form>
+                    <form method="post" action="/create-task">
                         <label for="task-name"><span class="task-title">Task Title</span><br>
-                            <input type="text" class="task-input" placeholder="Task Name" id="task-name">
+                            <input type="text" class="task-input" placeholder="Task Name" id="task-name" name="task-title">
                         </label>
 
                         <label for="task-date"></label><span class="task-title">Due Date:</span><br>
-                            <input type="datetime-local" class="task-input" id="task-name">
+                            <input type="datetime-local" class="task-input" id="task-name" name="task-due-date">
                         </label>
 
                         <label for="task-detail">
-                            <textarea type="text" class="task-area" placeholder="Task briefing" id="task-detail"></textarea>
+                            <textarea type="text" class="task-area" placeholder="Task briefing" id="task-detail" name="task-detail"></textarea>
+                        </label>
+
+                        <label for="task-check"></label>
+                        <div class="task-pri">
+                            <div>
+                                <span class="task-title">Priority:</span>
+                            </div>
+                            <div>
+                                <input type="checkbox" class="task-input-check" id="task-check" name="task-priority">
+                            </div>
+                        </div>
                         </label>
 
                         <div class="task-btn">
@@ -169,6 +180,8 @@
 
     <!-- Javascript for dashboard functionalities link -->
 
-    <script src="/dashboard.js"></script>
+    <script src="../public/dashboard.js"></script>
+    <script src="../routes/dashboard-routes.js"></script>
+
 </body>
 </html>
