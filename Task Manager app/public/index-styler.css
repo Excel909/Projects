@@ -257,7 +257,7 @@ body{
     width: 100%;
     z-index: 2;
     margin: auto;
-    /* display: none; */
+    display: none;
 }
 
 

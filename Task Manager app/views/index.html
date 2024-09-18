@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TM Dashboard</title>
-    <link rel="stylesheet" type="text/css" href="../public/index-styler.css">
+    <link rel="stylesheet" type="text/css" href="/index-styler.css">
     <!-- For icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -30,15 +30,15 @@
                 <div class="task-inputs">
                     <form method="post" action="/create-task">
                         <label for="task-name"><span class="task-title">Task Title</span><br>
-                            <input type="text" class="task-input" placeholder="Task Name" id="task-name" name="task-title">
+                            <input type="text" class="task-input" placeholder="Task Name" id="task-name" name="title">
                         </label>
 
                         <label for="task-date"></label><span class="task-title">Due Date:</span><br>
-                            <input type="datetime-local" class="task-input" id="task-name" name="task-due-date">
+                            <input type="datetime-local" class="task-input" id="task-name" name="duedate">
                         </label>
 
                         <label for="task-detail">
-                            <textarea type="text" class="task-area" placeholder="Task briefing" id="task-detail" name="task-detail"></textarea>
+                            <textarea type="text" class="task-area" placeholder="Task briefing" id="task-detail" name="detail"></textarea>
                         </label>
 
                         <label for="task-check"></label>
@@ -47,7 +47,7 @@
                                 <span class="task-title">Priority:</span>
                             </div>
                             <div>
-                                <input type="checkbox" class="task-input-check" id="task-check" name="task-priority">
+                                <input type="checkbox" class="task-input-check" id="task-check" name="priority">
                             </div>
                         </div>
                         </label>
@@ -165,7 +165,7 @@
 
         <div class="bottom-nav">
             <div class="bn">
-                <button class="bn-btn"><i class="fa-solid fa-calendar-days"></i></i></button>
+                <button class="bn-btn" href="/calendar.html"><i class="fa-solid fa-calendar-days"></i></i></button>
             </div>
 
             <div class="bn">
@@ -180,8 +180,6 @@
 
     <!-- Javascript for dashboard functionalities link -->
 
-    <script src="../public/dashboard.js"></script>
-    <script src="../routes/dashboard-routes.js"></script>
-
+    <script src="/dashboard.js"></script>
 </body>
 </html>
