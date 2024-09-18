@@ -8,6 +8,7 @@ const bodyParser = require('body-parser');
 const session = require('express-session');
 const MongoStore = require('connect-mongo');
 const { Cookie } = require('express-session');
+const calendar = require('./routes/calendar.js');
 
 connectDB();
 const app = express();
@@ -49,32 +50,33 @@ app.get('/sign-up',(req,res) => {
 app.get('/sign-up-success',(req,res) => {
     const success_page = path.join(__dirname,'views','sign-up-success.html');
     res.sendFile(success_page);
-});
+});0
 
 
 // Handling my dashboard routes
 app.use('/',dashboard);
-
-// const authorizer = (req,res,next) => {
-//     if(!req.session.user){
-//         return res.status(401).send('You need to login first');
-//     };
-//     next()
-// };
 
 app.get('/dashboard',(req,res) => {
     const dashboard_path = path.join(__dirname, 'views', 'index.html');
     res.sendFile(dashboard_path);
 });
 
+
 // For login page
 app.get('/login',(req,res) => {
     const pathway = path.join(__dirname,'views','login.html');
     res.sendFile(pathway);
 });
-
-
 app.use('/',log_in);
+
+// for my calendar routing
+
+app.use('/',calendar);
+app.get('/calendar',(req,res) => {
+    const calendar_path = path.join(__dirname,'views','calendar.html');
+
+    res.sendFile(calendar_path);
+});
 
 
 app.listen(3000, () => {

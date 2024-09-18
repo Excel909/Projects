@@ -8,7 +8,7 @@ const authorizer = (req,res,next) => {
     if(!req.session.user){
         return res.status(401).send('You need to login first');
     };
-    next()
+    next();
 };
 
 router.post('/create-task',authorizer, async(req,res) => {
@@ -35,6 +35,32 @@ router.post('/create-task',authorizer, async(req,res) => {
     } catch(err) {  
         console.log(err.message);
         res.status(500).send('Error creating task');
+    }
+});
+
+router.get('/show-tasks', authorizer, async(req,res) =>{
+    try{
+        const userId = req.session.user.id;
+
+        const tasks = await Task.find({user: userId});
+        res.json(tasks);
+    } catch (err) {
+        res.status(500).send('Tasks could not be retrieved');
+        console.log(err.message);
+    }
+});
+
+router.get('/task-details/:taskId', authorizer, async (req, res) => {
+    try {
+        const { taskId } = req.params;
+        const task = await Task.findById(taskId);
+        if (!task) {
+            return res.status(404).send('Task not found');
+        }
+        res.json(task);
+    } catch (err) {
+        res.status(500).send('Error retrieving task details');
+        console.log(err.message);
     }
 });
 

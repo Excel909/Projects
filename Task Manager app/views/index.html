@@ -18,6 +18,18 @@
 </head>
 <body>
     <div id="container">
+
+        <div id="ved">
+            <div class="ved-inner">
+                <div class="ved-exit">
+                    <button id="ved-exit" type="button"><i class="fa fa-circle-xmark"></i></button>
+                </div>
+
+                <div id="ved-show">
+
+                </div>
+            </div>
+        </div>
         <div class="dash-creator" id="dash-creator">
             <div class="task-adder">
                 <div class="ta-exit">
@@ -33,7 +45,7 @@
                             <input type="text" class="task-input" placeholder="Task Name" id="task-name" name="title">
                         </label>
 
-                        <label for="task-date"></label><span class="task-title">Due Date:</span><br>
+                        <label for="task-date"><span class="task-title">Due Date:</span><br>
                             <input type="datetime-local" class="task-input" id="task-name" name="duedate">
                         </label>
 
@@ -41,7 +53,7 @@
                             <textarea type="text" class="task-area" placeholder="Task briefing" id="task-detail" name="detail"></textarea>
                         </label>
 
-                        <label for="task-check"></label>
+                        <label for="task-check">
                         <div class="task-pri">
                             <div>
                                 <span class="task-title">Priority:</span>
@@ -59,6 +71,7 @@
                 </div>
             </div>
         </div>
+
         <div class="top-nav">
             <div class="t-l">
                 <div class="t-ll">
@@ -79,8 +92,8 @@
             </div>
         </div>
 
-        <div class="split">
-            <div class="left">
+        <div id="split">
+            <div id="left">
                 <div class="filter">
                     <div class="fil-head">
                         Filters
@@ -148,17 +161,18 @@
                             </div>
                         </div>
                     </div>
-                </div>
-               
-                
+                </div>      
             </div>
 
-            <div class="right">
+            <div id="right">
                 <div class="right-inner">
-                    <div class="dash-head">
-                        Your Tasks
+                    <div class="right-head">
+                        My Tasks
                     </div>
 
+                    <div id="tasks-row">
+                        
+                    </div>
                 </div>
             </div>
         </div>
@@ -181,5 +195,6 @@
     <!-- Javascript for dashboard functionalities link -->
 
     <script src="/dashboard.js"></script>
+    <!-- <script src="/dashboard-routes.js"></script> -->
 </body>
 </html>
