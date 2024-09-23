@@ -64,6 +64,28 @@ router.get('/task-details/:taskId', authorizer, async (req, res) => {
     }
 });
 
+router.post('/update-task/:itemId', authorizer, async (req, res) => {
+    try {
+        const { itemId } = req.params;
+        const { detail } = req.body;
+
+        // Checking if detail exists to prevent validation errors
+        if (!detail) {
+            return res.status(400).send('Task detail is required');
+        }
+
+        const updatedTask = await Task.findByIdAndUpdate(itemId, { detail }, { new: true });
+
+        if (updatedTask) {
+            res.json(updatedTask);
+        } else {
+            res.status(404).send('Task not found');
+        }
+    } catch (err) {
+        res.status(500).send('Error updating task');
+        console.log(err.message);
+    }
+});
 
 
 module.exports = router;

@@ -71,6 +71,7 @@ const displayTaskDetails = (taskId) => {
     .then(response => response.json())
     .then(task => {
 
+        const t_Id = task._id;
         const ved = document.getElementById('ved');
         ved.style.display = 'block';
 
@@ -88,17 +89,63 @@ const displayTaskDetails = (taskId) => {
                         Priority: ${task.priority ? 'Yes' : 'No'}
                     </div>
 
-                    <div class="v-brief">
-                        ${task.detail}
+                    <div class="v-bri">
+                        <textarea class='v-brief'>${task.detail}</textarea>
                     </div>
 
                     <div class="v-buttons">
-                        <button class="v-edit" type="edit">Edit</button>
-                        <button class="v-delete" type="edit">Delete</button>
+                        <button class="v-edit" type="button">Edit</button>
+                        <button class="v-update" type="button" data-task-id=${task._id}>Update</button>
+                        <button class="v-delete" type="button" data-task-id=${task._id}>Delete</button>
                     </div>
         `;
+        
+        const editBtn = document.querySelector('.v-edit');
+        const updateBtn = document.querySelector('.v-update');
+
+        editBtn.addEventListener('click', () => {
+            editTask();
+        });
+
+        updateBtn.addEventListener('click', () => { 
+            let ut = document.querySelector('.v-brief').value;
+            let itemId = document.querySelector('.v-update').getAttribute('data-task-id');
+            let updateText = ut;
+
+            updateTask(itemId,updateText);
+            // alert(itemId);
+        });
+
     })
     .catch(err => console.log(err.message));
+};
+
+
+// Ved btns function
+
+const editTask = () => {
+    // alert('Click the update button to update task when you are done editing');
+    const briefDiv = document.querySelector('.v-brief');
+    briefDiv.focus();
+}
+
+const updateTask = (itemId,updateText) => {
+    fetch(`update-task/${itemId}`,{
+        method:'POST',
+        headers:{'Content-Type':'application/json'},
+        body:JSON.stringify({detail:updateText})
+    })
+    .then(response => {
+        if (response.ok) {
+            return response.json();
+        }
+        throw new Error('Failed to update task');
+    })
+    .then(updatedTask => {
+        alert(updatedTask.detail);
+    })
+    .catch(err => console.log(err.message));
+
 };
 
 window.onload = () => {
