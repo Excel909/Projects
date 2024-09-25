@@ -10,4 +10,4 @@ it is a task manager app i created using:
 frontend: HTML CSS JAVASCRIPT
 backend: EXPRESS NODE 
 database: MONGODB
-dependencies: bcrypt,jsonwebtoken,mongoose,express-session connect-mongo
+dependencies: bcrypt,jsonwebtoken,mongoose,express-session connect-mongo, axios

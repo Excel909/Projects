@@ -64,28 +64,50 @@ router.get('/task-details/:taskId', authorizer, async (req, res) => {
     }
 });
 
-router.post('/update-task/:itemId', authorizer, async (req, res) => {
+
+// router.post('/update-task/:itemId', authorizer, async (req, res) => {
+//     const { itemId } = req.params;
+
+//     console.log(req);
+//     // try {
+
+//     //     const result = await Task.updateOne({ _id: itemId }, { $set: { detail: detail } });
+
+//     //     if (result.matchedCount === 0) {
+//     //         return res.status(404).json({ message: 'Task not found' });
+//     //     }
+//     //     if (result.modifiedCount === 0) {
+//     //         return res.status(400).json({ message: 'No changes made to the task' });
+//     //     }
+        
+//     //     res.json({ message: 'Task successfully updated' });
+//     // } catch (err) {
+//     //     res.status(500).send('Error updating task');
+//     //     console.log(err.message);
+//     // }
+
+// });
+
+
+
+router.get('/delete-task/:itemId', authorizer, async (req, res) => {
+    const { itemId } = req.params;
+
     try {
-        const { itemId } = req.params;
-        const { detail } = req.body;
+        const deleteTask = await Task.findByIdAndDelete(itemId);
 
-        // Checking if detail exists to prevent validation errors
-        if (!detail) {
-            return res.status(400).send('Task detail is required');
-        }
-
-        const updatedTask = await Task.findByIdAndUpdate(itemId, { detail }, { new: true });
-
-        if (updatedTask) {
-            res.json(updatedTask);
+        if (deleteTask) {
+            res.json({ message: 'Task successfully deleted' });
         } else {
-            res.status(404).send('Task not found');
+            res.status(404).json({ message: 'Task not found' });
         }
+
     } catch (err) {
-        res.status(500).send('Error updating task');
+        res.status(500).json({ message: 'Task could not be deleted' });
         console.log(err.message);
     }
 });
+
 
 
 module.exports = router;

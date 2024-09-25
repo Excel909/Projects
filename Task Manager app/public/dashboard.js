@@ -1,8 +1,3 @@
-// To handle all dashboard functionalities
-// const { response } = require("express");
-
-// to make dashboard creator appear and dissapear 
-
 let task_show_btn = document.getElementById('add_task');
 let dash_creator = document.getElementById('dash-creator');
 let dash_exit_btn = document.getElementById('ta-exit-btn');
@@ -102,51 +97,72 @@ const displayTaskDetails = (taskId) => {
         
         const editBtn = document.querySelector('.v-edit');
         const updateBtn = document.querySelector('.v-update');
+        const delBtn = document.querySelector('.v-delete');
 
         editBtn.addEventListener('click', () => {
             editTask();
         });
 
         updateBtn.addEventListener('click', () => { 
-            let ut = document.querySelector('.v-brief').value;
-            let itemId = document.querySelector('.v-update').getAttribute('data-task-id');
-            let updateText = ut;
+            const updateText = document.querySelector('.v-brief').value;
+            const itemId = document.querySelector('.v-update').getAttribute('data-task-id');
 
             updateTask(itemId,updateText);
-            // alert(itemId);
         });
 
+
+        delBtn.addEventListener('click', () => {
+            const itemId = document.querySelector('.v-delete').getAttribute('data-task-id');
+
+            deleteTask(itemId);
+        });
     })
     .catch(err => console.log(err.message));
 };
-
-
 // Ved btns function
 
 const editTask = () => {
-    // alert('Click the update button to update task when you are done editing');
     const briefDiv = document.querySelector('.v-brief');
     briefDiv.focus();
 }
 
-const updateTask = (itemId,updateText) => {
-    fetch(`update-task/${itemId}`,{
-        method:'POST',
-        headers:{'Content-Type':'application/json'},
-        body:JSON.stringify({detail:updateText})
+const deleteTask = (itemId) => {
+    fetch(`/delete-task/${itemId}`, {
+        method: 'GET',
     })
     .then(response => {
         if (response.ok) {
             return response.json();
+        } else {
+            throw new Error('Failed to delete task');
         }
-        throw new Error('Failed to update task');
     })
-    .then(updatedTask => {
-        alert(updatedTask.detail);
+    .then(data => {
+        window.location.reload();
     })
-    .catch(err => console.log(err.message));
-
+    .catch(err => alert(err.message));
 };
+
+
+// const updateTask = async (itemId, updateText) => {
+//     // console.log(updateText);
+//     await fetch(`update-task/${itemId}`,{
+//         method:'POST',
+//         headers:{
+//             'Content-Type':'application/json'
+//         },
+//         body:JSON.stringify({detail:updateText})
+//     })
+//     .then(response => response.json())
+//     .then(response => {
+//         console.log(response);
+//         if(response.ok){
+//             alert(response.message)
+//         } 
+//     })
+//     .catch(err => alert(err.message));
+// };
+
 
 window.onload = () => {
     fetch('/show-tasks')
