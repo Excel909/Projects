@@ -42,7 +42,7 @@
                 <div class="task-inputs">
                     <form method="post" action="/create-task">
                         <label for="task-name"><span class="task-title">Task Title</span><br>
-                            <input type="text" class="task-input" placeholder="Task Name" id="task-name" name="title">
+                            <input type="text" class="task-input t-title" placeholder="Task Name" id="task-name" name="title">
                         </label>
 
                         <label for="task-date"><span class="task-title">Due Date:</span><br>
@@ -86,7 +86,7 @@
                 <button class="add_task" id="add_task" type="button">Add Task</button>
 
                 <div class="t-search">
-                    <input type="search" placeholder="Search tasks..." class="ts-search">
+                    <input type="search" placeholder="Search tasks..." class="ts-search" id="ts-search">
                     <button type="button" class="ts-btn"><i class="fa-solid fa-magnifying-glass"></i></button>
                 </div>
             </div>
@@ -102,7 +102,7 @@
                     <div class="fil-group">
                         <div class="f-g">
                             <div class="custom-check-cont">
-                                <input type="checkbox" class="cc" id="cc_one">
+                                <input type="checkbox" class="cc prior" id="cc_one">
                                 <label for="cc_one" class="cc_label" id="cc_one"></label>
                             </div>
 

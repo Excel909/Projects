@@ -50,6 +50,18 @@ router.get('/show-tasks', authorizer, async(req,res) =>{
     }
 });
 
+router.get('/show-prior-tasks',authorizer,async(req,res) => {
+    try{
+        const userId = req.session.user.id;
+        const priorTask = await Task.find({user: userId, priority:true})
+
+        res.json(priorTask);
+    }catch(err){
+        res.status(500).send('Tasks could not be found');
+        console.log(err.message)
+    }
+});
+
 router.get('/task-details/:taskId', authorizer, async (req, res) => {
     try {
         const { taskId } = req.params;

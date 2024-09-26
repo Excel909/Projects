@@ -10,6 +10,11 @@ dash_exit_btn.addEventListener('click', () => {
     dash_creator.style.display = 'none';
 });
 
+document.querySelector('.t-title').addEventListener('input', () => {
+    let t_value = document.querySelector('.t-title');
+    t_value.value = t_value.value.replace(/[^a-zA-z\s]/g,'');
+})
+
 // Working on ved
 const vedExit = document.getElementById('ved-exit');
 
@@ -23,7 +28,7 @@ vedExit.addEventListener('click', () => {
 
 let showTasks = tasks => {
     const taskList = document.getElementById('tasks-row');
-
+    taskList.innerHTML = '';
     tasks.forEach(task => {
         // taskList.textContent = task.title;
         let taskBrief = document.createElement('div');
@@ -43,9 +48,9 @@ let showTasks = tasks => {
                         <div class="tb-r">
                             <button type="button" class='tb-view' data-task-id="${task._id}" id="tb-view">View</button>
 
-                            <button type="button" data-task-id="${task._id}" id="tb-edit">Edit</button>
+                            <button type="button" data-task-id="${task._id}" id="tb-edit" class='tb-edit'>Edit</button>
 
-                            <button type="button" data-task-id="${task._id}" id="tb-delete">Delete</button>
+                            <button type="button" data-task-id="${task._id}" id="tb-delete" class='tb-delete'>Delete</button>
                         </div>
         `;
         // send created class to dashboard
@@ -59,6 +64,22 @@ let showTasks = tasks => {
             displayTaskDetails(taskId);
         });
     });
+
+    document.querySelectorAll('.tb-delete').forEach(del => {
+        del.addEventListener('click',(e) => {
+            const taskId = e.target.getAttribute('data-task-id');
+            deleteTask(taskId);
+        });
+    });
+
+    document.querySelectorAll('.tb-edit').forEach(edit => {
+        edit.addEventListener('click',(e) => {
+            const taskId = e.target.getAttribute('data-task-id');
+            displayTaskDetails(taskId); 
+        });
+    });
+
+
 };
 
 const displayTaskDetails = (taskId) => {
@@ -99,8 +120,8 @@ const displayTaskDetails = (taskId) => {
         const updateBtn = document.querySelector('.v-update');
         const delBtn = document.querySelector('.v-delete');
 
-        editBtn.addEventListener('click', () => {
-            editTask();
+        editBtn.addEventListener('click', (e) => {
+            editTask(e);
         });
 
         updateBtn.addEventListener('click', () => { 
@@ -113,7 +134,6 @@ const displayTaskDetails = (taskId) => {
 
         delBtn.addEventListener('click', () => {
             const itemId = document.querySelector('.v-delete').getAttribute('data-task-id');
-
             deleteTask(itemId);
         });
     })
@@ -164,24 +184,106 @@ const deleteTask = (itemId) => {
 // };
 
 
-window.onload = () => {
-    fetch('/show-tasks')
-    .then(response => {
-        if (response.status === 401) {
-            throw new Error('Unauthorized: You need to login first');
+// Working on my search bar for tasks
+
+const searchBar = document.getElementById('ts-search');
+const searchBtn = document.querySelector('.ts-btn');
+
+searchBar.addEventListener('input',() => {
+    searchBar.value = searchBar.value.replace(/[^a-zA-Z\s]/g,'');
+
+    const searchValue = searchBar.value.toLowerCase();
+
+    document.querySelectorAll('.task-brief').forEach(taskBrief => {
+        const taskTitle= taskBrief.querySelector('.tb-title').textContent.toLowerCase();
+
+        if(taskTitle.includes(searchValue)){
+            taskBrief.style.display = 'flex';
+        } else {
+            taskBrief.style.display = 'none';
         }
-        if (!response.ok) {
-            throw new Error('Network response was not ok');
-        }
-        return response.json();
+    });
+    
+});
+
+searchBar.addEventListener('blur',() => {
+    document.querySelectorAll('.task-brief').forEach(task => {
+        task.style.display = 'flex';
     })
-    .then(tasks => showTasks(tasks))
-    .catch(err => {
-        console.log('Error fetching tasks:', err.message);
+});
+
+searchBtn.addEventListener('click', () => {
+    const searchValue = searchBar.value;
+    searchValue.toLowerCase();
+
+    document.querySelectorAll('.task-brief').forEach(taskBrief => {
+        const taskTitle= taskBrief.querySelector('.tb-title').textContent.toLowerCase();
+
+        if(taskTitle.includes(searchValue)){
+            taskBrief.style.display = 'flex';
+        } else {
+            taskBrief.style.display = 'none';
+
+        }
+    });
+});
+
+
+
+// Working on my filters
+const priorCheck = document.querySelector('.prior');
+let isLoading = true;
+
+const taskDealer = () => {
+    if (!priorCheck.checked) {
+        isLoading = false;
+        loadTask();
+    }
+
+    priorCheck.addEventListener('change', (e) => {
+        if (e.target.checked) {
+            isLoading = true;  
+            loadTask();   
+        } else {
+            isLoading = false;
+            loadTask();       
+        }
     });
 };
 
 
+const loadPriorTask = () => {
+    fetch('/show-prior-tasks')
+    .then(response => response.json())
+    .then(tasks => showTasks(tasks))
+    .catch(err => err.message);
+}
+
+const loadTask = () => {
+    const taskList = document.getElementById('tasks-row');
+    if(isLoading){
+        taskList.innerHTML = '';
+        loadPriorTask();
+    }else{
+
+        fetch('/show-tasks')
+        .then(response => {
+            if (response.status === 401) {
+                throw new Error('Unauthorized: You need to login first');
+            }
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(tasks => showTasks(tasks))
+        .catch(err => {
+            console.log('Error fetching tasks:', err.message);
+        });    
+    }
+};
+
+taskDealer();
 
 
 
