@@ -13,10 +13,8 @@ const authorizer = (req,res,next) => {
 
 router.post('/create-task',authorizer, async(req,res) => {
     const {title,duedate,detail,priority} = req.body;
-
     try{
         const userId = req.session.user.id;
-
         // Because of err i have to convert priority value to boolean
 
         const edit_prime = priority === 'on';
@@ -62,6 +60,27 @@ router.get('/show-prior-tasks',authorizer,async(req,res) => {
     }
 });
 
+router.get('/show-due-tasks',authorizer,async(req,res)=> {
+    try{
+        const userId = req.session.user.id;
+        const starter = new Date;
+        starter.setHours(0,0,0,0);
+
+        const ender = new Date;
+        ender.setHours(23,59,59,999);
+
+        const dueTasks = await Task.find({
+            user:userId,
+            duedate:{$gte:starter, $lte:ender}
+        });
+
+        res.json(dueTasks);
+    }catch(err){
+        res.status(500).send('Tasks could not be found');
+        console.log(err.message)
+    }
+});
+
 router.get('/task-details/:taskId', authorizer, async (req, res) => {
     try {
         const { taskId } = req.params;
@@ -72,6 +91,28 @@ router.get('/task-details/:taskId', authorizer, async (req, res) => {
         res.json(task);
     } catch (err) {
         res.status(500).send('Error retrieving task details');
+        console.log(err.message);
+    }
+});
+
+
+router.patch('/complete-task/:taskId/:isCompleted', authorizer, async (req, res) => {
+    const { taskId } = req.params;
+    const { isCompleted } = req.params;
+    // const complete = isCompleted == true;
+
+    console.log(isCompleted);
+    try {
+        const updatedTask = await Task.findByIdAndUpdate({_id:taskId}, {completed: isCompleted},{ new: true }
+        );
+
+        if (!updatedTask) {
+            return res.status(404).json({ success: false, message: 'Task not found' });
+        }
+
+        res.json({ success: true, message: 'Task updated successfully' });
+    } catch (err) {
+        res.status(500).json({ success: false, message: 'Error updating task' });
         console.log(err.message);
     }
 });
@@ -120,6 +161,6 @@ router.get('/delete-task/:itemId', authorizer, async (req, res) => {
     }
 });
 
-
+// Grace1213157
 
 module.exports = router;

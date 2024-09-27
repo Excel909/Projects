@@ -516,9 +516,18 @@ body{
     color: #777;
 }
 
+.tb-l{
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    gap: 30px;
+}
+
 .tb-r{
     display: flex;
     gap: 10px;
+    justify-content: space-evenly;
+    align-items: center;
 }
 #tb-view,#tb-edit,#tb-delete{
     padding: 10px;
@@ -564,8 +573,6 @@ body{
 .bn-btn:hover{
     cursor: pointer;
 }
-
-
 
 
 

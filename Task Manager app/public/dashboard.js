@@ -1,3 +1,4 @@
+
 let task_show_btn = document.getElementById('add_task');
 let dash_creator = document.getElementById('dash-creator');
 let dash_exit_btn = document.getElementById('ta-exit-btn');
@@ -19,7 +20,7 @@ document.querySelector('.t-title').addEventListener('input', () => {
 const vedExit = document.getElementById('ved-exit');
 
 vedExit.addEventListener('click', () => {
-    const ved = document.getElementById('ved');
+    const ved = document.getElementById('ved')
     ved.style.display = 'none';
 });
 
@@ -33,29 +34,34 @@ let showTasks = tasks => {
         // taskList.textContent = task.title;
         let taskBrief = document.createElement('div');
         taskBrief.classList.add('task-brief');
+
+        const uniqueId = `complete-${task._id || index}`; 
         
         taskBrief.innerHTML = `
-            <div class="tb-l">
-                            <div class="tb-title">
-                                ${task.title}
-                            </div>
+        <div class="tb-l">  
+            <div class="task-complete">
+                <input type="checkbox" class="cc complete" id="${uniqueId}" data-task-id="${task._id}">  
+                <label for="${uniqueId}" class="cc_label complete" data-task-id="${task._id}"></label> 
+            </div>
+            <div>
+                <div class="tb-title">
+                    ${task.title}
+                </div>
+                <div class="tb-duedate">
+                    Due: ${new Date(task.duedate).toLocaleDateString()}
+                </div>
+            </div>
+        </div>
+        <div class="tb-r">
+            <button type="button" class='tb-view' data-task-id="${task._id}" id="tb-view">View</button>
+            <button type="button" data-task-id="${task._id}" id="tb-edit" class='tb-edit'>Edit</button>
+            <button type="button" data-task-id="${task._id}" id="tb-delete" class='tb-delete'>Delete</button>
+        </div>
+    `;
 
-                            <div class="tb-duedate">
-                                Due: ${new Date(task.duedate).toLocaleDateString()}
-                            </div>
-                        </div>
-
-                        <div class="tb-r">
-                            <button type="button" class='tb-view' data-task-id="${task._id}" id="tb-view">View</button>
-
-                            <button type="button" data-task-id="${task._id}" id="tb-edit" class='tb-edit'>Edit</button>
-
-                            <button type="button" data-task-id="${task._id}" id="tb-delete" class='tb-delete'>Delete</button>
-                        </div>
-        `;
-        // send created class to dashboard
-        taskList.appendChild(taskBrief);
-    });
+    // Append the created taskBrief to the taskList
+    taskList.appendChild(taskBrief);
+});
 
     // Working on my view btn... retrieve task id for further processing
     document.querySelectorAll('.tb-view').forEach(view => {
@@ -79,7 +85,35 @@ let showTasks = tasks => {
         });
     });
 
+    document.querySelectorAll('.complete').forEach(com => {
+        com.addEventListener('change',(e) => {
+            const taskId = e.target.getAttribute('data-task-id');
+            let isCompleted = e.target.checked;
+            alert(isCompleted)
+            completeTask(taskId,isCompleted);
+        });
+    });
 
+
+};
+
+const completeTask = (taskId,isCompleted) => {
+    fetch(`complete-task/${taskId}/${isCompleted}`,{
+        method:'PATCH'
+        // headers: {
+        //     'Content-Type': 'application/json'
+        // },
+        // body: JSON.stringify({completed: isCompleted})
+    })
+
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            alert('Task status updated successfully');
+        } else {
+            alert('Error updating task');
+        }
+    })
 };
 
 const displayTaskDetails = (taskId) => {
@@ -232,20 +266,34 @@ searchBtn.addEventListener('click', () => {
 
 // Working on my filters
 const priorCheck = document.querySelector('.prior');
-let isLoading = true;
+let priorLoading = true;
+
+const dueCheck = document.querySelector('.dueday');
+let dueLoading = true;
 
 const taskDealer = () => {
-    if (!priorCheck.checked) {
-        isLoading = false;
+    if ((!priorCheck.checked || !dueCheck.checked) || (!priorCheck.checked && !dueCheck.checked)) {
+        priorLoading = false;
+        dueLoading = false;
         loadTask();
-    }
+    } 
+
+    dueCheck.addEventListener('change',(e) => {
+        if(e.target.checked){
+            dueLoading = true;
+            loadTask();
+        } else {
+            dueLoading = false;
+            loadTask();
+        }
+    });
 
     priorCheck.addEventListener('change', (e) => {
         if (e.target.checked) {
-            isLoading = true;  
+            priorLoading = true;  
             loadTask();   
         } else {
-            isLoading = false;
+            priorLoading = false;
             loadTask();       
         }
     });
@@ -259,13 +307,21 @@ const loadPriorTask = () => {
     .catch(err => err.message);
 }
 
+const loadDueTask = () => {
+    fetch('/show-due-tasks')
+    .then(response => response.json())
+    .then(tasks => showTasks(tasks))
+    .catch(err => err.message);
+}
+
 const loadTask = () => {
     const taskList = document.getElementById('tasks-row');
-    if(isLoading){
+    if(priorLoading){
         taskList.innerHTML = '';
         loadPriorTask();
-    }else{
-
+    }else if(dueLoading){
+        loadDueTask();
+    } else if((dueLoading === false) || (priorLoading === false)){
         fetch('/show-tasks')
         .then(response => {
             if (response.status === 401) {
