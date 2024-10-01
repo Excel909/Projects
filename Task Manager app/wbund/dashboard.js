@@ -37,11 +37,12 @@ let showTasks = tasks => {
         taskBrief.classList.add('task-brief');
 
         const uniqueId = `complete-${task._id || index}`; 
-        
+        const isChecked = task.completed ? 'checked' : '';
+
         taskBrief.innerHTML = `
         <div class="tb-l">  
             <div class="task-complete">
-                <input type="checkbox" class="cc complete" id="${uniqueId}" data-task-id="${task._id}">  
+                <input type="checkbox" class="cc complete" id="${uniqueId}" data-task-id="${task._id}" ${isChecked}>  
                 <label for="${uniqueId}" class="cc_label complete" data-task-id="${task._id}"></label> 
             </div>
             <div>
@@ -90,11 +91,11 @@ let showTasks = tasks => {
         com.addEventListener('change',(e) => {
             const taskId = e.target.getAttribute('data-task-id');
             let isCompleted = e.target.checked;
-            alert(isCompleted)
             completeTask(taskId,isCompleted);
         });
     });
 
+    
 
 };
 
@@ -115,7 +116,7 @@ const completeTask = (taskId,isCompleted) => {
     .then(response => {
         // Access response data directly
         if (response.data.success) {
-            alert('Task status updated successfully');
+            console.log('Task updated');
         } else {
             alert('Error updating task');
         }
@@ -276,10 +277,14 @@ let priorLoading = true;
 const dueCheck = document.querySelector('.dueday');
 let dueLoading = true;
 
+const completeCheck = document.querySelector('.checker');
+let checkLoading = true;
+
 const taskDealer = () => {
-    if ((!priorCheck.checked || !dueCheck.checked) || (!priorCheck.checked && !dueCheck.checked)) {
+    if ((!priorCheck.checked || !dueCheck.checked || !completeCheck) || (!priorCheck.checked && !dueCheck.checked && !completeCheck)) {
         priorLoading = false;
         dueLoading = false;
+        checkLoading = false;
         loadTask();
     } 
 
@@ -302,6 +307,16 @@ const taskDealer = () => {
             loadTask();       
         }
     });
+
+    completeCheck.addEventListener('change', (e) => {
+        if (e.target.checked) {
+            checkLoading = true;  
+            loadTask();   
+        } else {
+            checkLoading = false;
+            loadTask();       
+        }
+    });
 };
 
 
@@ -319,6 +334,13 @@ const loadDueTask = () => {
     .catch(err => err.message);
 }
 
+const loadCompletedTask = () => {
+    fetch('/show-completed-tasks')
+    .then(response => response.json())
+    .then(tasks => showTasks(tasks))
+    .catch(err => err.message);
+}
+
 const loadTask = () => {
     const taskList = document.getElementById('tasks-row');
     if(priorLoading){
@@ -326,7 +348,10 @@ const loadTask = () => {
         loadPriorTask();
     }else if(dueLoading){
         loadDueTask();
-    } else if((dueLoading === false) || (priorLoading === false)){
+    }else if(checkLoading){
+        loadCompletedTask();
+    }
+    else if((dueLoading === false) || (priorLoading === false)){
         fetch('/show-tasks')
         .then(response => {
             if (response.status === 401) {
@@ -343,6 +368,8 @@ const loadTask = () => {
         });    
     }
 };
+
+
 
 taskDealer();
 

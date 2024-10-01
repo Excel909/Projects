@@ -20,6 +20,17 @@ body{
     height: 100%;
 }
 
+#sorter{
+    width: 200px;
+    height: 200px;
+    position: absolute;
+    margin: auto;
+    bottom: 10px;
+    z-index: 2;
+    background-color: wheat;
+    /* display: none; */
+}
+
 #ved{
     width: 100%;
     height: 100%;
@@ -470,17 +481,19 @@ body{
     width: 70%;
     height: 100%;
     /* background-color: var(--background); */
+    position: relative;
 }
 
 .right-inner{
     width: 100%;
     height: 100%;
+    /* background-color: red; */
 }
 
 .right-head{
     width: 100%;
-    /* background-color: red; */
-    height: fit-content;
+    /* background-color: green; */
+    height:fit-content;
     padding-top: 20px;
     font-family: calibri;
     font-weight: bold;
@@ -490,7 +503,57 @@ body{
 #tasks-row{
     padding: 10px;
     width: 100%;
-    height: fit-content;
+    height: 60%;
+    overflow-y:scroll;
+    overflow-x: hidden;
+    /* background-color: red; */
+}
+
+#sorters{
+    position: absolute;
+    bottom: 0px;
+    width: 100%;
+    height: 25%;
+    border-top: 1px solid wheat;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: var(--font-family);
+}
+
+.s-l{
+    width: 50%;
+    height: 100%;
+    padding: 10px;
+}
+
+.s-r{
+    width: 50%;
+    height: 100%;
+    padding: 10px;
+}
+
+.la{
+    font-weight: bold;
+    font-family: calibri;
+}
+
+.dd,.tt{
+    width: 80%;
+    padding: 10px;
+    border: 1px solid #333;
+    border-radius: 10px;
+    margin-top: 10px;
+}
+
+.dd-btn,.tt-btn{
+    width: 100px;
+    padding: 7px;
+    margin-top: 10px;
+    color: white;
+    background-color: var(--background);
+    border: none;
+    border-radius: 5px;
 }
 
 .task-brief{

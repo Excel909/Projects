@@ -103,8 +103,6 @@ router.get('/task-details/:taskId', authorizer, async (req, res) => {
 router.patch('/complete-task/:taskId', authorizer, async (req, res) => {
     const { taskId } = req.params;
     const { completed } = req.body;
-
-    console.log(completed);
     try {
         const updatedTask = await Task.findByIdAndUpdate(
             taskId, // Pass the ID directly
@@ -138,10 +136,7 @@ router.patch('/update-task/:itemId', authorizer, async (req, res) => {
         res.status(500).send('Error updating task');
         console.log(err.message);
     }
-
 });
-
-
 
 router.get('/delete-task/:itemId', authorizer, async (req, res) => {
     const { itemId } = req.params;
@@ -160,6 +155,24 @@ router.get('/delete-task/:itemId', authorizer, async (req, res) => {
         console.log(err.message);
     }
 });
+
+router.get('/show-completed-tasks', authorizer, async (req, res) => {
+    const userId = req.session.user.id;
+
+    try {
+        const completedTasks = await Task.find({ user: userId, completed: true });
+
+        if (completedTasks) {
+            res.json(completedTasks);
+        } else {
+            res.status(404).json({ success: false, message: 'No completed tasks found' });
+        }
+    } catch (err) {
+        res.status(500).json({ success: false, message: 'Error loading tasks' });
+        console.log(err.message);
+    }
+});
+
 
 // Grace1213157
 
