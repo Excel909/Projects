@@ -14,16 +14,19 @@ connectDB();
 const app = express();
 
 app.use(bodyParser.urlencoded({extended:true}));
+app.use(express.json());
 
 // First route the sign up page
 const signup_path = path.join(__dirname,'views','sign-up.html');
 const public_path = path.join(__dirname,'public');
+const webpack_path = path.join(__dirname,'dist');
 
 app.use(express.static(public_path));
+app.use(express.static(webpack_path)); //For my webpack files
 
 // Creating a session for my user
 app.use(session({
-    secret: process.env.SESSION_SECRET || 'your-secret-key', // Add a secret key (use an environment variable for security)
+    secret: process.env. xSESSION_SECRET || 'your-secret-key', // Add a secret key (use an environment variable for security)
     resave: false,
     saveUninitialized: false, // Explicitly set to true or false
     store: MongoStore.create({

@@ -2,7 +2,11 @@ const express = require('express');
 const path = require('path');
 const router = express.Router();
 const Task = require('../models/task');
+const app = express();
+const bodyParser = require('body-parser');
 
+app.use(bodyParser.urlencoded({extended:true}));
+app.use(express.json());
 
 const authorizer = (req,res,next) => {
     if(!req.session.user){
@@ -96,14 +100,16 @@ router.get('/task-details/:taskId', authorizer, async (req, res) => {
 });
 
 
-router.patch('/complete-task/:taskId/:isCompleted', authorizer, async (req, res) => {
+router.patch('/complete-task/:taskId', authorizer, async (req, res) => {
     const { taskId } = req.params;
-    const { isCompleted } = req.params;
-    // const complete = isCompleted == true;
+    const { completed } = req.body;
 
-    console.log(isCompleted);
+    console.log(completed);
     try {
-        const updatedTask = await Task.findByIdAndUpdate({_id:taskId}, {completed: isCompleted},{ new: true }
+        const updatedTask = await Task.findByIdAndUpdate(
+            taskId, // Pass the ID directly
+            { completed: completed }, // Update object
+            { new: true } // Options
         );
 
         if (!updatedTask) {
@@ -117,29 +123,23 @@ router.patch('/complete-task/:taskId/:isCompleted', authorizer, async (req, res)
     }
 });
 
+router.patch('/update-task/:itemId', authorizer, async (req, res) => {
+    const { itemId } = req.params;
+    const { update } = req.body;
+    console.log(update);
 
-// router.post('/update-task/:itemId', authorizer, async (req, res) => {
-//     const { itemId } = req.params;
+    try {
+        const result = await Task.findByIdAndUpdate(itemId,{detail:update}, {new:true});
 
-//     console.log(req);
-//     // try {
+        if(result){
+            res.json({ message: 'Task successfully updated' });
+        }
+    } catch (err) {
+        res.status(500).send('Error updating task');
+        console.log(err.message);
+    }
 
-//     //     const result = await Task.updateOne({ _id: itemId }, { $set: { detail: detail } });
-
-//     //     if (result.matchedCount === 0) {
-//     //         return res.status(404).json({ message: 'Task not found' });
-//     //     }
-//     //     if (result.modifiedCount === 0) {
-//     //         return res.status(400).json({ message: 'No changes made to the task' });
-//     //     }
-        
-//     //     res.json({ message: 'Task successfully updated' });
-//     // } catch (err) {
-//     //     res.status(500).send('Error updating task');
-//     //     console.log(err.message);
-//     // }
-
-// });
+});
 
 
 

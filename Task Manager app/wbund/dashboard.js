@@ -1,3 +1,4 @@
+const axios = require('axios');
 
 let task_show_btn = document.getElementById('add_task');
 let dash_creator = document.getElementById('dash-creator');
@@ -98,23 +99,33 @@ let showTasks = tasks => {
 };
 
 const completeTask = (taskId,isCompleted) => {
-    fetch(`complete-task/${taskId}/${isCompleted}`,{
-        method:'PATCH'
-        // headers: {
-        //     'Content-Type': 'application/json'
-        // },
-        // body: JSON.stringify({completed: isCompleted})
-    })
+    // fetch(`complete-task/${taskId}/${isCompleted}`,{
+    //     method:'PATCH'
+    //     // headers: {
+    //     //     'Content-Type': 'application/json'
+    //     // },
+    //     // body: JSON.stringify({completed: isCompleted})
+    // })
+        // const completeTask = (taskId, isCompleted) => {
 
-    .then(response => response.json())
-    .then(data => {
-        if (data.success) {
+    // Using Axios to send a PATCH request
+    axios.patch(`complete-task/${taskId}`,
+       {completed: isCompleted.toString()}
+)
+    .then(response => {
+        // Access response data directly
+        if (response.data.success) {
             alert('Task status updated successfully');
         } else {
             alert('Error updating task');
         }
     })
+    .catch(error => {
+        console.log(error.message); // Handle any errors
+    }); 
 };
+
+
 
 const displayTaskDetails = (taskId) => {
     fetch(`task-details/${taskId}`)
@@ -198,24 +209,18 @@ const deleteTask = (itemId) => {
 };
 
 
-// const updateTask = async (itemId, updateText) => {
-//     // console.log(updateText);
-//     await fetch(`update-task/${itemId}`,{
-//         method:'POST',
-//         headers:{
-//             'Content-Type':'application/json'
-//         },
-//         body:JSON.stringify({detail:updateText})
-//     })
-//     .then(response => response.json())
-//     .then(response => {
-//         console.log(response);
-//         if(response.ok){
-//             alert(response.message)
-//         } 
-//     })
-//     .catch(err => alert(err.message));
-// };
+const updateTask = (itemId, updateText) => {
+    
+    axios.patch(`update-task/${itemId}`,
+        {update:updateText.toString()}
+    )
+    .then(response => { 
+        if(response.ok){
+            alert(response.message);
+        } 
+    })
+    .catch(err => console.log(err.message));
+};
 
 
 // Working on my search bar for tasks
