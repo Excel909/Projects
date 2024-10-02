@@ -4,11 +4,21 @@ const path = require('path');
 const router = express.Router();
 const User = require('../models/user');
 const bcrypt = require('bcryptjs'); //For hashing my password
+const multer = require('multer');
 
+const storage = multer.memoryStorage();
+const upload = multer({storage:storage});
 
 // Handling my form submission
-router.post('/submit', async (req,res) => {
+router.post('/submit',upload.single('profilepic'), async (req,res) => {
     const {username,email,password} = req.body;
+    let profilepic = '';
+    let profilepicType = '';
+
+    if(req.file){
+        profilepic = req.file.buffer.toString('base64');
+        profilepicType = req.file.mimetype;
+    }
 
     try {    
         let user = await User.findOne({email});
@@ -21,7 +31,9 @@ router.post('/submit', async (req,res) => {
         user = new User({
             username,
             email,
-            password:cryptedpassword
+            password:cryptedpassword,
+            profilepic,
+            profilepicType
         });
 
         // save the user in the database

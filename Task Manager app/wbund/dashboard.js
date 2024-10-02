@@ -31,6 +31,10 @@ vedExit.addEventListener('click', () => {
 let showTasks = tasks => {
     const taskList = document.getElementById('tasks-row');
     taskList.innerHTML = '';
+
+    if(tasks < 1){
+        taskList.innerHTML = '<h1 style="padding:30px; color:lightgrey; font-family:candara;">No Tasks</h1>';
+    };
     tasks.forEach(task => {
         // taskList.textContent = task.title;
         let taskBrief = document.createElement('div');
@@ -94,9 +98,6 @@ let showTasks = tasks => {
             completeTask(taskId,isCompleted);
         });
     });
-
-    
-
 };
 
 const completeTask = (taskId,isCompleted) => {
@@ -369,10 +370,69 @@ const loadTask = () => {
     }
 };
 
+// Working on my sort functions
+
+const sortDate = document.getElementById('sort_date');
+const sortDateBtn = document.querySelector('.dd-btn');
+
+sortDate.addEventListener('change', () => {
+    const dateInput = document.querySelector('.dd');    
+    dateInput.focus();
+});
+
+sortDateBtn.addEventListener('click', () => {
+    const dInput = document.querySelector('.dd').value;
+    const dParsed = new Date(dInput);
+    const isoDate = dParsed.toISOString();
+
+    fetch(`sort-due-date/${isoDate}`)
+    .then(response => response.json())
+    .then(tasks => showTasks(tasks))
+    .catch(err => console.log(err.message));
+});
 
 
-taskDealer();
 
+const creationDate = document.getElementById('sort_c_date');
+const creationDateBtn = document.querySelector('.tt-btn');
 
+creationDate.addEventListener('change', () => {
+    const dateInput = document.querySelector('.tt');    
+    dateInput.focus();
+});
 
+creationDateBtn.addEventListener('click', () => {
+    const dInput = document.querySelector('.tt').value;
+    const dParsed = new Date(dInput);
+    const isoDate = dParsed.toISOString();
 
+    fetch(`sort-creation-date/${isoDate}`)
+    .then(response => response.json())
+    .then(tasks => showTasks(tasks))
+    .catch(err => console.log(err.message));
+});
+
+// for priority in sort group
+
+const sPriority = document.getElementById('sort_priority');
+
+sPriority.addEventListener('change',() => {
+    loadPriorTask();
+});
+
+taskDealer();   
+
+// Functions to run as soon as the window loads
+
+window.onload = () => {
+    const userName = document.querySelector('.user-name');
+    const profilePic = document.querySelector('.user-pic');
+
+    fetch(`user-name`)
+    .then(response => response.json())
+    .then(data => {
+        userName.innerHTML = data.user;
+        profilePic.setAttribute('src',`data:${data.ptype};base64,${data.profile}`);
+    })
+    .catch(err => console.log(err.message));
+};

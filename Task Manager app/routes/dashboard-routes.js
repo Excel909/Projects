@@ -4,6 +4,7 @@ const router = express.Router();
 const Task = require('../models/task');
 const app = express();
 const bodyParser = require('body-parser');
+const User = require('../models/user');
 
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(express.json());
@@ -124,8 +125,6 @@ router.patch('/complete-task/:taskId', authorizer, async (req, res) => {
 router.patch('/update-task/:itemId', authorizer, async (req, res) => {
     const { itemId } = req.params;
     const { update } = req.body;
-    console.log(update);
-
     try {
         const result = await Task.findByIdAndUpdate(itemId,{detail:update}, {new:true});
 
@@ -170,6 +169,69 @@ router.get('/show-completed-tasks', authorizer, async (req, res) => {
     } catch (err) {
         res.status(500).json({ success: false, message: 'Error loading tasks' });
         console.log(err.message);
+    }
+});
+
+
+router.get('/sort-due-date/:tInput',authorizer, async(req,res) => {
+    const userId = req.session.user.id;
+    const taskInput = req.params.tInput;
+
+    try{
+        const starter = new Date(taskInput);
+
+        const tasks = await Task.find({
+            user:userId,
+            duedate:{$lte:starter}
+        });
+
+        if(tasks){
+            res.json(tasks);
+        }
+    }catch(err){
+        console.log(err.message);
+        res.status(500).send('Tasks not found');
+    }
+});
+
+
+router.get('/sort-creation-date/:tInput',authorizer, async(req,res) => {
+    const userId = req.session.user.id;
+    const taskInput = req.params.tInput;
+
+    try{
+        const starter = new Date(taskInput);
+
+        const tasks = await Task.find({
+            user:userId,
+            createdAt:{$lte:starter}
+        });
+
+        if(tasks){
+            res.json(tasks);
+        }
+    }catch(err){
+        console.log(err.message);
+        res.status(500).send('Tasks not found');
+    }
+});
+
+router.get('/user-name',authorizer,async(req,res) => {
+    const userId = req.session.user.id;
+
+    try{
+        const user = await User.findById(userId);
+
+        if(user){
+            res.json({
+                user: user.username,
+                profile:user.profilepic,
+                ptype: user.profilepicType
+            });
+        }
+    } catch(err){
+        console.log(err.message);
+        res.status(500).send('User not found');
     }
 });
 

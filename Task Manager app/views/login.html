@@ -3,8 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login>> TaskMaster</title>
-
+    <title>POMO (Login)</title>
     <!-- Css files -->
     <link rel="stylesheet" type="text/css" href="/login.css">
 
@@ -18,48 +17,63 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/ favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/site.webmanifest">
+
+
+    
 </head>
 <body>
-    
-<div id="container">
-    <div class="sign_header">
-        <div class="sign_logo">
-            <div class="s-l">
-                <i class="fa-solid fa-list-check"></i>
+    <div id="container">
+        <div id="sign-split">
+            <div class="ss-l">
+                <img src="/login-pic.jpeg" class="ss-l-pic">
             </div>
-            <div class="s-r">
-                TaskMaster
+
+            <!-- Lerkeli one -->
+            <div class="ss-r">
+                <div class="sign_header">
+                    <div class="sign_logo">
+                        <div class="s-l">
+                            <i class="fa-solid fa-list-check"></i>
+                        </div>
+                        <div class="s-r">
+                            POMO
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form">
+                    <div class="login_head">    
+                        Login to Pomo
+                    </div>
+                    
+                    <form method="post" action="/user-login">
+                        <label for="email"><span class="form_title">Email</span><br>
+                            <input type="email" name="email" class="dp1" required/>
+                        </label>
+                    
+                        <label for="password"><span class="form_title">password</span><br>
+                            <input type="password" name="password" class="dp1" />
+                        </label>
+                    
+                        <div class="bttn">
+                            <button type="submit" class="form_btn">Login</button>
+                        </div>
+                    </form>
+                </div>
+                    
+                <div class="login_link">
+                    Don't have an Account? <a href="/sign-up">Sign up</a>
+                </div>
+                    
             </div>
         </div>
     </div>
 
-
-    <div class="form">
-        <div class="login_head">    
-            Login to TaskMaster
-        </div>
-
-        <form method="post" action="/user-login">
-            <label for="email"><span class="form_title">Email</span><br>
-                <input type="email" name="email" class="dp1" required/>
-            </label>
-
-            <label for="password"><span class="form_title">password</span><br>
-                <input type="password" name="password" class="dp1" />
-            </label>
-
-            <div class="bttn">
-                <button type="submit" class="form_btn">Login</button>
-            </div>
-        </form>
-    </div>
-
-    <div class="login_link">
-        Don't have an Account? <a href="/sign-up">Sign up</a>
-    </div>
-</div>
-
-</div>
-
+    <script src="/form_validation.js" type="text/javascript"></script>
 </body>
 </html>

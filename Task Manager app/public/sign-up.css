@@ -1,9 +1,9 @@
 @import url('index-styler.css');
 
 body{
-    background-color: white;
     margin: 0;
     padding: 0;
+    height: 100vh;
 }
 
 *{
@@ -22,11 +22,37 @@ body{
     font-family: calibri;
 }
 
+#sign-split{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.ss-l{
+    width: 50%;
+    height: 100%;
+    overflow: hidden;
+    position: relative;
+}
+
+.ss-l-pic{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.ss-r{
+    width: 50%;
+    height: 100%;
+    /* border-left: 1px solid #ccc; */
+}
+
 .sign_header{
     width: 100%;
     height: 80px;
-    box-shadow: 0px 0px 8px #ccc;
+    /* box-shadow: 0px 0px 8px #ccc; */
 }
+
 
 .sign_logo{
     display: flex;
@@ -50,11 +76,11 @@ body{
 .form{
     width: fit-content;
     padding: 20px;
-    background-color: white;
-    box-shadow: 0px 0px 9px #ccc;
+    /* background-color: white; */
+    border: 1px solid #ccc;
     margin: auto;
-    margin-top: 5vh;
-    border-radius: 20px;
+    /* margin-top: vh; */
+    border-radius: 10px;
 }
 
 .form_head{
@@ -76,13 +102,14 @@ form label{
     text-transform: capitalize; 
 }
 
+
 .dp1{
-    margin-top: 10px;
+    margin-top: 7px;
     width: 320px;
     padding: 15px;
-    border-radius: 20px;
+    border-radius: 10px;
     border: none;
-    box-shadow: 0px 1px 5px 0px #ccc;
+    box-shadow: 0px 1px 8px 0px #ccc;
 }
 
 .dp1:focus{

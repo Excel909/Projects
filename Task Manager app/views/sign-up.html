@@ -17,50 +17,67 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/site.webmanifest">
     
 </head>
 <body>
     <div id="container">
-        <div class="sign_header">
-            <div class="sign_logo">
-                <div class="s-l">
-                    <i class="fa-solid fa-list-check"></i>
-                </div>
-                <div class="s-r">
-                    TaskMaster
-                </div>
-            </div>
-        </div>
-
-        <div class="form">
-            <div class="form_head">
-                Create a New Account
+        <div id="sign-split">
+            <div class="ss-l">
+                <img src="/sign-up-pic.webp" class="ss-l-pic">
             </div>
 
-            <form method="post" action="/submit">
-                <label for="name"><span class="form_title">Username</span><br>
-                    <input type="text" name="username" class="dp1" id="name" maxlength="20" minlength="4" required/>
-                </label>
-
-                <label for="email"><span class="form_title">email</span><br>
-                    <input type="email" name="email" class="dp1" minlength="5" id="email"required/>
-                </label>
-
-                <label for="password"><span class="form_title">password</span><br>
-                    <input type="password" name="password" class="dp1" required minlength="6" id="password"/>
-                    <div id="password_strength">
-                        
+            <div class="ss-r">
+                <div class="sign_header">
+                    <div class="sign_logo">
+                        <div class="s-l">
+                            <i class="fa-solid fa-list-check"></i>
+                        </div>
+                        <div class="s-r">
+                            POMO
+                        </div>
                     </div>
-                </label>
-
-                <div class="bttn">
-                    <button type="submit" class="form_btn">Sign Up</button>
                 </div>
-            </form>
-        </div>
 
-        <div class="login_link">
-            Already have an Account? <a href="/login">Login</a>
+                <div class="form">
+                    <div class="form_head">
+                        Create a New Account
+                    </div>
+        
+                    <form method="post" action="/submit" enctype="multipart/form-data">
+                        <label for="name"><span class="form_title">Username</span><br>
+                            <input type="text" name="username" class="dp1" id="name" maxlength="20" minlength="4" required/>
+                        </label>
+        
+                        <label for="email"><span class="form_title">email</span><br>
+                            <input type="email" name="email" class="dp1" minlength="5" id="email"required/>
+                        </label>
+        
+                        <label for="password"><span class="form_title">password</span><br>
+                            <input type="password" name="password" class="dp1" required minlength="6" id="password"/>
+                            <div id="password_strength">
+                                
+                            </div>
+                        </label>
+
+                        <label for="profilePicture"><span class="form_title shift">Choose Profile Picture</span><br><p></p>
+                            <input type="file" name="profilepic" accept="image/*" id="profilePicture" required/>
+                        </label>
+        
+                        <div class="bttn">
+                            <button type="submit" class="form_btn">Sign Up</button>
+                        </div>
+                    </form>
+                </div>
+        
+                <div class="login_link">
+                    Already have an Account? <a href="/login">Login</a>
+                </div>
+            </div>
         </div>
     </div>
 
